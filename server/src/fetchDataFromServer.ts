@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import axios from "axios";
-import { checkServerStatus } from "../../client-1/src/commands";
+import { checkServerStatus } from '../../client/src/commands';
 
 interface ClientConfig {
   name: string;

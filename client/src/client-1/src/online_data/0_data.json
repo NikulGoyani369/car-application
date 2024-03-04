@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "65d65ff45b3948289ddb2a9a",
+    "name": "Audi",
+    "__v": 0,
+    "modelCount": 0
+  },
+  {
+    "_id": "65d66036a5b9b6aa2cb1fbb2",
+    "name": "BMW",
+    "__v": 0,
+    "modelCount": 0
+  },
+  {
+    "_id": "65d662c1d52041c47734d428",
+    "name": "Suzuki",
+    "__v": 0,
+    "modelCount": 0
+  },
+  {
+    "_id": "65d6648bcee2767f7ac20cd0",
+    "name": "testing",
+    "__v": 0,
+    "modelCount": 2
+  },
+  {
+    "_id": "65d664abcee2767f7ac20cd6",
+    "name": "Yamaha",
+    "__v": 0,
+    "modelCount": 0
+  },
+  {
+    "_id": "65de326d31c4adee4ae0889a",
+    "name": "helppp",
+    "__v": 0,
+    "modelCount": 1
+  },
+  {
+    "_id": "65de336431c4adee4ae088a6",
+    "name": "Data Stand",
+    "__v": 0,
+    "modelCount": 0
+  },
+  {
+    "_id": "65de36bc5bab5b2ea4dc8875",
+    "name": "reading che",
+    "__v": 0,
+    "modelCount": 1
+  },
+  {
+    "_id": "65e639ab30fcfbef8d553a12",
+    "name": "delete",
+    "__v": 0,
+    "modelCount": 0
+  }
+]
