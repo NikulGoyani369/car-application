@@ -1,0 +1,15 @@
+/node_modules
+
+/dist
+
+/offline_data
+
+*.js
+
+.env
+
+/client/src/offline_data
+/client/src/online_data
+
+/client-1/src/offline_data
+/client-1/src/online_data
