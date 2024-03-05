@@ -29,13 +29,13 @@ export const executeCachedCommands = async () => {
     // Clear the command cache after executing all commands
     commandCache.length = 0;
   } catch (error) {
-    console.error("Error executing cached commands:", error);
+    console.error('Error executing cached commands:', error);
   }
 };
 
 // Modify cacheCommand to accept the function and its arguments
 export const cacheCommand = (commandFunction: Function, ...args: string[]) => {
-  console.log("Caching command offline:", commandFunction.name, args);
+  console.log('Caching command offline:', commandFunction.name, args);
 
   // // Store the last cached command
   // lastCachedCommand = { commandFunction, args };
@@ -54,12 +54,12 @@ const executeCommand = async (command: any) => {
 
     // Execute the cached command function with its arguments
     if (commandCache.length > 0) {
-      console.log("Execute the cached command function with its arguments.");
+      console.log('Execute the cached command function with its arguments.');
       commandFunction(...args);
     }
 
-    console.log("Command executed:", commandFunction.name, args);
+    console.log('Command executed:', commandFunction.name, args);
   } catch (error) {
-    console.error("Error executing command:", command, error);
+    console.error('Error executing command:', command, error);
   }
 };

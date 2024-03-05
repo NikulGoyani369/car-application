@@ -10,9 +10,15 @@ import { get } from "node:http";
 // Function to check if the server is running
 export const checkServerStatus = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/health");
+    const response = await axios.get('http://localhost:3000/health');
 
-    console.log(" \n Server response:", response.data);
+    console.log(' \n Server response:', response.data);
+
+    // If the server is running, execute cached commands
+    if (response.status === 200) {
+      console.log('Server is running. Executing cached commands...');
+      await executeCachedCommands();
+    }
 
     return true;
   } catch (error: any) {

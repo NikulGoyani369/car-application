@@ -1,5 +1,3 @@
-import * as fs from "node:fs";
-
 let offlineCache: any = {};
 
 // Export offline data the app for use in other files
@@ -41,7 +39,7 @@ export const handleOfflineRequest = (data: any) => {
       }
     }
   } catch (err: any) {
-    console.error("Error saving data locally", err);
+    console.error('Error saving data locally', err);
   }
 };
 
@@ -51,7 +49,7 @@ const isEqual = (existingItem: any, newItem: any) => {
 
 // Function to get offline data from the cache
 export const getOfflineData = (endpoint: string) => {
-  console.log("Retrieving cached data for endpoint...Nikul: ", endpoint);
+  console.log('Retrieving cached data for endpoint...Nikul: ', endpoint);
 
   // Check if the endpoint exists in the cache and return the data
 
