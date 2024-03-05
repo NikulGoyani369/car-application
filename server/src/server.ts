@@ -1,21 +1,20 @@
 import express = require("express");
 import { connect, ConnectOptions } from "mongoose";
-import { ManufacturerModel } from "./models/Manufacturers";
-import { CarModelModel } from "./models/Models";
+import { ManufacturerModel } from './model/Manufacturer';
+import { CarModelModel } from './model/Model';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Define route to check server health
-app.get("/health", (req, res) =>
-{
-    res.send("Server is healthy and running");
+app.get('/health', (req, res) => {
+  res.send('Server is healthy and running');
 });
 
 // Connect to MongoDB
 const options: ConnectOptions = {
-    autoCreate: true,
-    dbName: "car_management",
+  autoCreate: true,
+  dbName: 'car_management',
 };
 
 // Connect to the MongoDB database
@@ -31,7 +30,7 @@ connect('mongodb://localhost:27017/', options)
 app.use(express.json());
 
 // Define routes for POST operations on Create manufacturers
-app.post('/manufacturers', async (req, res) => {
+app.post('/manufacturer', async (req, res) => {
   try {
     const { name } = req.body;
 
@@ -52,16 +51,16 @@ app.post('/manufacturers', async (req, res) => {
 });
 
 // Handle GET request to retrieve all manufacturers
-app.get('/manufacturers', async (req, res) => {
+app.get('/manufacturer', async (req, res) => {
   try {
     // Fetch all manufacturers from the database
-    const manufacturers = await ManufacturerModel.find();
+    const manufacturer = await ManufacturerModel.find();
 
-    const carModels = await CarModelModel.find();
+    const carModel = await CarModelModel.find();
 
     // For each manufacturer, count the number of models associated with it
-    const manufacturersWithModelCount = manufacturers.map((manufacturer) => {
-      const modelCount = carModels.filter(
+    const manufacturersWithModelCount = manufacturer.map((manufacturer) => {
+      const modelCount = carModel.filter(
         (model) => model.manufacturer.toString() === manufacturer._id.toString()
       ).length;
 
@@ -82,7 +81,7 @@ app.get('/manufacturers', async (req, res) => {
 });
 
 // Define routes for POST operations on car models
-app.post('/models', async (req, res) => {
+app.post('/model', async (req, res) => {
   try {
     const { name, manufacturer } = req.body;
 
@@ -101,7 +100,7 @@ app.post('/models', async (req, res) => {
 });
 
 // Define routes for DELETE operations on manufacturers by ID
-app.delete('/manufacturers/:id', async (req, res) => {
+app.delete('/manufacturer/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -125,7 +124,7 @@ app.delete('/manufacturers/:id', async (req, res) => {
 });
 
 // Define routes for GET operations on car models by manufacturer ID
-app.get('/models', async (req, res) => {
+app.get('/model', async (req, res) => {
   try {
     const { manufacturer } = req.query;
 
