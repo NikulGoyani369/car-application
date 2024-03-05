@@ -79,10 +79,10 @@ export const listManufacturers = async () => {
     const serverStatus = await checkServerStatus();
 
     if (!serverStatus) {
-      console.log("You are currently offline retrieving data...");
+      console.log('You are currently offline retrieving data...');
 
       // Retrieve the last created manufacturer from the cache storage
-      const lastCachedManufacturer = getOfflineData("createManufacturer");
+      const lastCachedManufacturer = getOfflineData('createManufacturer');
 
       // Extract and format the properties of the nested object
       const formattedData = Object.keys(lastCachedManufacturer).map((key) => {
@@ -92,28 +92,33 @@ export const listManufacturers = async () => {
         };
       });
 
+      // Extract only relevant properties for display
+      const data = formattedData.map((item) => {
+        return {
+          name: item.value.name,
+          _id: item.value._id.toString(), // Convert ObjectId to string
+          __v: item.value.__v,
+        };
+      });
+
       // Display the formatted data in a table format
-      console.table(formattedData);
+      console.table(data);
 
-      const test = JSON.stringify(lastCachedManufacturer);
+      // if (lastCachedManufacturer && lastCachedManufacturer.length > 0) {
+      // console.log('Last cached manufacturer:');
+      // console.table(lastCachedManufacturer);
+      // for (const manufacturer of lastCachedManufacturer) {
+      //   console.table(`${manufacturer.name}`);
+      //   table(manufacturer);
+      // }
 
-      console.table(test);
-
-      if (lastCachedManufacturer && lastCachedManufacturer.length > 0) {
-        console.log("Last cached manufacturer:");
-        // console.table(lastCachedManufacturer);
-        // for (const manufacturer of lastCachedManufacturer) {
-        //   console.table(`${manufacturer.name}`);
-        //   table(manufacturer);
-        // }
-
-        // lastCachedManufacturer.forEach((manufacturer: { name: any }) => {
-        //   console.table(`${manufacturer.name}`);
-        //   table(manufacturer.name);
-        // });
-      } else {
-        console.log("No cached manufacturers found.");
-      }
+      // lastCachedManufacturer.forEach((manufacturer: { name: any }) => {
+      //   console.table(`${manufacturer.name}`);
+      //   table(manufacturer.name);
+      // });
+      // } else {
+      // console.log('No cached manufacturers found.');
+      // }
 
       // Retrieve cached manufacturers from listManufacturers
       // const cachedManufacturers = getOfflineData("listManufacturers");

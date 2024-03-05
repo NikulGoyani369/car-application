@@ -2,8 +2,8 @@
 export const commandCache: unknown[] = [];
 
 // Define a global variable to store the last cached command
-let lastCachedCommand: { commandFunction: Function; args: string[] } | null =
-  null;
+// let lastCachedCommand: { commandFunction: Function; args: string[] } | null =
+//   null;
 
 // Function to execute cached commands when online
 export const executeCachedCommands = async () => {
