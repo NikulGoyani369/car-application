@@ -267,6 +267,7 @@ export const addModelByManufacturerId = async (
           new CarModelModel({
             addModelByID,
             name: modelName,
+            _id: addModelByManufacturerId,
           }),
         ],
       });
