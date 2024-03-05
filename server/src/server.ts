@@ -1,7 +1,6 @@
 import express = require("express");
-import { connect, ConnectOptions } from "mongoose";
-import { ManufacturerModel } from './model/Manufacturer';
-import { CarModelModel } from './model/Model';
+import { ConnectOptions, connect } from 'mongoose';
+import { CarModelModel, ManufacturerModel } from '../../lib';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,11 +17,11 @@ const options: ConnectOptions = {
 };
 
 // Connect to the MongoDB database
-connect('mongodb://localhost:27017/', options)
+connect('mongodb://localhost:27017', options)
   .then(() => {
     console.log('Connected to MongoDB');
   })
-  .catch((err) => {
+  .catch((err: any) => {
     console.error('Error connecting to MongoDB', err);
   });
 
@@ -30,7 +29,7 @@ connect('mongodb://localhost:27017/', options)
 app.use(express.json());
 
 // Define routes for POST operations on Create manufacturers
-app.post('/manufacturer', async (req, res) => {
+app.post('/manufacturers', async (req, res) => {
   try {
     const { name } = req.body;
 
@@ -51,16 +50,16 @@ app.post('/manufacturer', async (req, res) => {
 });
 
 // Handle GET request to retrieve all manufacturers
-app.get('/manufacturer', async (req, res) => {
+app.get('/manufacturers', async (req, res) => {
   try {
     // Fetch all manufacturers from the database
-    const manufacturer = await ManufacturerModel.find();
+    const manufacturers = await ManufacturerModel.find();
 
-    const carModel = await CarModelModel.find();
+    const carModels = await CarModelModel.find();
 
     // For each manufacturer, count the number of models associated with it
-    const manufacturersWithModelCount = manufacturer.map((manufacturer) => {
-      const modelCount = carModel.filter(
+    const manufacturersWithModelCount = manufacturers.map((manufacturer) => {
+      const modelCount = carModels.filter(
         (model) => model.manufacturer.toString() === manufacturer._id.toString()
       ).length;
 
@@ -81,7 +80,7 @@ app.get('/manufacturer', async (req, res) => {
 });
 
 // Define routes for POST operations on car models
-app.post('/model', async (req, res) => {
+app.post('/models', async (req, res) => {
   try {
     const { name, manufacturer } = req.body;
 
@@ -100,18 +99,18 @@ app.post('/model', async (req, res) => {
 });
 
 // Define routes for DELETE operations on manufacturers by ID
-app.delete('/manufacturer/:id', async (req, res) => {
+app.delete('/manufacturers/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
     await ManufacturerModel.findByIdAndDelete(id);
 
-    const models = await CarModelModel.find({ manufacturer: id });
+    await CarModelModel.findByIdAndDelete({ manufacturer: id });
 
-    //a for...of loop instead of forEach. This is because forEach does not work well with async/await
-    for (const model of models) {
-      await CarModelModel.findByIdAndDelete(model._id);
-    }
+    // // Delete models associated with the manufacturer by ID
+    // for (const model of models) {
+    //   await CarModelModel.findByIdAndDelete(model._id);
+    // }
 
     res.status(204).end();
   } catch (err: any) {
@@ -123,23 +122,23 @@ app.delete('/manufacturer/:id', async (req, res) => {
   }
 });
 
-// Define routes for GET operations on car models by manufacturer ID
-app.get('/model', async (req, res) => {
+// Define routes to retrieve car model by manufacturer ID
+app.get('/models', async (req, res) => {
   try {
     const { manufacturer } = req.query;
 
     const models = await CarModelModel.find({ manufacturer });
 
-    // find each model by its manufacurer id
-    const findModels = [];
+    // find model by manufacturer id
+    const findCarModels = [];
 
     for (const model of models) {
       const foundModel = await CarModelModel.findById(model._id);
 
-      findModels.push(foundModel);
+      findCarModels.push(foundModel);
     }
 
-    res.status(200).json(findModels);
+    res.status(200).json(findCarModels);
   } catch (err: any) {
     res.status(500).json({
       error: err.message,
@@ -149,7 +148,6 @@ app.get('/model', async (req, res) => {
   }
 });
 
-app.listen(PORT, () =>
-{
-    console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -1,9 +1,26 @@
 // Define a global array to cache commands
 export const commandCache: unknown[] = [];
 
+// Define a global variable to store the last cached command
+let lastCachedCommand: { commandFunction: Function; args: string[] } | null =
+  null;
+
 // Function to execute cached commands when online
 export const executeCachedCommands = async () => {
   try {
+    // // If lastCachedCommand exists, execute it
+    // if (lastCachedCommand) {
+    //   console.log(
+    //     "Executing last cached command:",
+    //     lastCachedCommand.commandFunction.name,
+    //     lastCachedCommand.args
+    //   );
+    //   await executeCommand(lastCachedCommand);
+    // }
+
+    // // Clear the last cached command after execution
+    // lastCachedCommand = null;
+
     // Loop through the cached commands and execute each one
     for (const command of commandCache) {
       await executeCommand(command);
@@ -19,6 +36,11 @@ export const executeCachedCommands = async () => {
 // Modify cacheCommand to accept the function and its arguments
 export const cacheCommand = (commandFunction: Function, ...args: string[]) => {
   console.log("Caching command offline:", commandFunction.name, args);
+
+  // // Store the last cached command
+  // lastCachedCommand = { commandFunction, args };
+
+  // console.log("Last cached command:", lastCachedCommand);
 
   // Push the command function and its arguments to the command cache
   commandCache.push({ commandFunction, args });

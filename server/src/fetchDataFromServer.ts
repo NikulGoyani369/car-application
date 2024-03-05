@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import axios from "axios";
-import { checkServerStatus } from '../../client/src/commands';
+import { checkServerStatus } from "../../client/src/commands";
 
 interface ClientConfig {
   name: string;
@@ -203,4 +203,4 @@ setInterval(async () => {
   await compareAndMergeForAllClients();
 
   await fetchAndUpdateForAllClients();
-}, 180000); // 3 minutes in milliseconds
+}, 1800000); // 3 minutes in milliseconds
