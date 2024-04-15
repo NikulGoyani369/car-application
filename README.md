@@ -1,4 +1,4 @@
-# car-application
+# car-application list of requirements
 
 # Specifications
 - Use Typescript, Express.js, Node.js
